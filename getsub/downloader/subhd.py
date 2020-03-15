@@ -96,7 +96,7 @@ class SubHDDownloader(Downloader):
         return sub_dict
 
     def download_file(self, file_name, sub_url, session=None):
-
+        
         if not session:
             session = requests.session()
             session.headers.update(Downloader.header)
@@ -104,7 +104,7 @@ class SubHDDownloader(Downloader):
         sid = sub_url.split("/")[-1]
         r = session.get(sub_url)
         bs_obj = BeautifulSoup(r.text, "html.parser")
-        dtoken = bs_obj.find("button", {"id": "down"})["dtoken1"]
+        dtoken = bs_obj.find("button", dtoken1= lambda t: t).attrs['dtoken1']
 
         r = session.post(
             SubHDDownloader.site_url + "/ajax/down_ajax",
