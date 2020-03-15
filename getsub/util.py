@@ -238,11 +238,13 @@ def compute_subtitle_score(video_detail, subname, match_episode=True):
     if "简体" in subname or "chs" in subname or ".gb." in subname:
         score += 2
     if "繁体" in subname or "cht" in subname or ".big5." in subname:
-        pass
+        score += 3
     if "chs.eng" in subname or "chs&eng" in subname:
         score += 2
     if "中英" in subname or "简英" in subname or "双语" in subname or "简体&英文" in subname:
         score += 4
+    if "繁英" in subname or "繁体&英文" in subname:
+        score += 6
 
     score += ("ass" in subname or "ssa" in subname) * 2
     score += ("srt" in subname) * 1
