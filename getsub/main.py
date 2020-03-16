@@ -208,6 +208,10 @@ class GetSubtitles(object):
         extract_subs = [[sub_name, datatype]]
         return "", extract_subs
 
+    def pop_browser(self, url):
+        import webbrowser
+        webbrowser.open_new(url)
+
     def process_result(self, video, chosen_sub, link, session):
 
         # download archive
@@ -217,6 +221,10 @@ class GetSubtitles(object):
             chosen_sub, link, session=session
         )
         if error:
+            if ('download too frequently with subhd' in error):
+                self.pop_browser(link)
+                input('wait for complete...\n')
+                return self.process_result(video, chosen_sub, link, session)
             return error, []
 
         # process archive or subtitles downloaded
